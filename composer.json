@@ -1,5 +1,5 @@
 {
-    "name": "jeckel/identity-contract",
+    "name": "jeckel-lab/identity-contract",
     "description": "Contract and abstract classes to manage identities in Domains",
     "type": "library",
     "require": {
