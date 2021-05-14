@@ -41,7 +41,11 @@ abstract class UuidIdentityAbstract extends IdentityAbstract
      */
     protected function isValid($value): bool
     {
-        return (preg_match('`^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$`Di', (string) $value) === 1);
+        if (! is_string($value)) {
+            return false;
+        }
+
+        return (preg_match('`^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$`Di', $value) === 1);
     }
 
     /**
