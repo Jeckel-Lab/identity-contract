@@ -32,6 +32,7 @@ abstract class IdentityAbstract implements Equality, Identity
      */
     final public function __construct($id)
     {
+        /** @psalm-suppress UnusedMethodCall */
         $this->validate($id);
 
         $this->id = $id;
@@ -68,14 +69,14 @@ abstract class IdentityAbstract implements Equality, Identity
     }
 
     /**
-     * @param mixed $id
+     * @param mixed $object
      * @return bool
      */
-    public function equals($id): bool
+    public function equals($object): bool
     {
-        return is_object($id)
-            && \get_class($this) === \get_class($id)
-            && $this->id === $id->id;
+        return is_object($object)
+            && \get_class($this) === \get_class($object)
+            && $this->id === $object->id;
     }
 
     /**
