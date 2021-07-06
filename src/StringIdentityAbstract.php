@@ -18,11 +18,6 @@ namespace JeckelLab\IdentityContract;
 abstract class StringIdentityAbstract extends IdentityAbstract
 {
     /**
-     * @var string
-     */
-    protected $id;
-
-    /**
      * @return string
      */
     public function toScalar(): string
@@ -34,7 +29,7 @@ abstract class StringIdentityAbstract extends IdentityAbstract
      * @param mixed $value
      * @return bool
      */
-    protected function isValid($value): bool
+    protected function isValid(mixed $value): bool
     {
         return is_string($value) && $value !== '';
     }

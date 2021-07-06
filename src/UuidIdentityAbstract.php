@@ -19,16 +19,12 @@ use Ramsey\Uuid\Uuid;
  */
 abstract class UuidIdentityAbstract extends IdentityAbstract
 {
-    /** @var string */
-    protected $id;
-
     /**
      * @return static
      * @spalm-suppress UnsafeInstantiation
      */
-    final public static function new()
+    final public static function new(): self
     {
-        // @spalm-suppress UnsafeInstantiation
         return new static(Uuid::uuid4()->toString());
     }
 
@@ -39,7 +35,7 @@ abstract class UuidIdentityAbstract extends IdentityAbstract
      * @param mixed $value
      * @return bool
      */
-    protected function isValid($value): bool
+    protected function isValid(mixed $value): bool
     {
         if (! is_string($value)) {
             return false;

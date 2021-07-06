@@ -6,5 +6,15 @@
 
 Propose basic abstract classes to manage Identities in Domain project.
 
-- integer based identities
-- uuid based identities
+## Release map
+
+| Release name | Branch name | Php Version             |
+|--------------|-------------|-------------------------|
+| 0.x          | release/1.X | php >= 7.2 & php >= 8.0 |
+| 1.x          | main        | php >= 8.0              |
+
+## Identity base provided:
+
+- **Integer** based identities
+- **Uuid** based identities
+- **String** based identities

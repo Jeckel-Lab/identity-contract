@@ -22,20 +22,13 @@ use JeckelLab\Contract\Domain\Identity\Identity;
 abstract class IdentityAbstract implements Equality, Identity
 {
     /**
-     * @var T
-     */
-    protected $id;
-
-    /**
      * IdAbstract constructor.
      * @param T $id
      */
-    final public function __construct($id)
+    final public function __construct(protected $id)
     {
         /** @psalm-suppress UnusedMethodCall */
         $this->validate($id);
-
-        $this->id = $id;
     }
 
     /**
@@ -45,12 +38,12 @@ abstract class IdentityAbstract implements Equality, Identity
      * @param T $value
      * @return bool
      */
-    abstract protected function isValid($value): bool;
+    abstract protected function isValid(mixed $value): bool;
 
     /**
      * @return string|int
      */
-    abstract public function toScalar();
+    abstract public function toScalar(): string|int;
 
     /**
      * @return string
@@ -72,7 +65,7 @@ abstract class IdentityAbstract implements Equality, Identity
      * @param mixed $object
      * @return bool
      */
-    public function equals($object): bool
+    public function equals(mixed $object): bool
     {
         return is_object($object)
             && $object instanceof self
@@ -83,7 +76,7 @@ abstract class IdentityAbstract implements Equality, Identity
     /**
      * @param T $id
      */
-    protected function validate($id): void
+    protected function validate(mixed $id): void
     {
         if (!$this->isValid($id)) {
             throw new InvalidIdException((string) $id);
