@@ -63,4 +63,4 @@ jobs:
       - name: Psalm
         run: ./vendor/bin/psalm
       - name: PHPStan
-        run: ./vendor/bin/phpstan -c phpstan.neon
+        run: ./vendor/bin/phpstan
