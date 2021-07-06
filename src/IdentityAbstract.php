@@ -75,6 +75,7 @@ abstract class IdentityAbstract implements Equality, Identity
     public function equals($object): bool
     {
         return is_object($object)
+            && $object instanceof self
             && \get_class($this) === \get_class($object)
             && $this->id === $object->id;
     }
