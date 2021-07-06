@@ -3,8 +3,8 @@
     "description": "Contract and abstract classes to manage identities in Domains",
     "type": "library",
     "require": {
-        "php": "^7.2 || ^8.0",
-        "jeckel-lab/contract": "^1.2",
+        "php": "^8.0",
+        "jeckel-lab/contract": "^2.0",
         "ramsey/uuid": "^4.1"
     },
     "require-dev": {

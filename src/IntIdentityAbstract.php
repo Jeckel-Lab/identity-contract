@@ -18,11 +18,6 @@ namespace JeckelLab\IdentityContract;
 abstract class IntIdentityAbstract extends IdentityAbstract
 {
     /**
-     * @var int
-     */
-    protected $id;
-
-    /**
      * @return int
      */
     public function toScalar(): int
@@ -34,7 +29,7 @@ abstract class IntIdentityAbstract extends IdentityAbstract
      * @param mixed $value
      * @return bool
      */
-    protected function isValid($value): bool
+    protected function isValid(mixed $value): bool
     {
         return is_int($value) && $value > 0;
     }
