@@ -3,15 +3,19 @@
     "description": "Contract and abstract classes to manage identities in Domains",
     "type": "library",
     "require": {
-        "php": "^7.2 || ^8.0",
-        "jeckel-lab/contract": "^1.2",
+        "php": ">=8.0",
+        "jeckel-lab/contract": "dev-feature/contract-v3",
         "ramsey/uuid": "^4.1"
     },
     "require-dev": {
-        "vimeo/psalm": "^4.3",
-        "squizlabs/php_codesniffer": "^3.5",
-        "phpmd/phpmd": "^2.8",
-        "phpro/grumphp": "^0.19 || ^1.2.0"
+        "phpro/grumphp": "^1.5",
+        "vimeo/psalm": "^4.12",
+        "phpstan/phpstan": "^1.2",
+        "phpmd/phpmd": "^2.10",
+        "squizlabs/php_codesniffer": "^3.6",
+        "roave/security-advisories": "dev-master",
+        "maglnet/composer-require-checker": "^3.5",
+        "phpunit/phpunit": "^9.5"
     },
     "suggest": {
         "vimeo/psalm": "Using psalm with this 'contract' will enable immutability and strong typing verification"
@@ -27,6 +31,11 @@
     "autoload": {
         "psr-4": {
             "JeckelLab\\IdentityContract\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\JeckelLab\\IdentityContract\\": "tests/"
         }
     }
 }
