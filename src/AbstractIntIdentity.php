@@ -27,7 +27,7 @@ abstract class AbstractIntIdentity implements Identity
 
     private int $identity;
 
-    final public function __construct($id)
+    final private function __construct(int $id)
     {
         $this->identity = $id;
     }
@@ -38,17 +38,13 @@ abstract class AbstractIntIdentity implements Identity
     }
 
     /**
-     * @param int|null $id
      * @return AbstractIntIdentity
      * @psalm-suppress MoreSpecificImplementedParamType
      * @psalm-suppress ImplementedReturnTypeMismatch
      */
-    public static function new($id = null)
+    public static function new()
     {
-        if (null === $id) {
-            throw new EnableToGenerateNewIdentityException();
-        }
-        return new static($id);
+        throw new EnableToGenerateNewIdentityException();
     }
 
     /**

@@ -15,36 +15,36 @@ use stdClass;
 
 class IntIdentityTest extends TestCase
 {
-    public function testConstructorWithIntShouldSuccess()
-    {
-        $this->assertInstanceOf(FixtureIntIdentity::class, new FixtureIntIdentity(25));
-    }
-
-    /**
-     * @dataProvider notIntData
-     * @param $invalidId
-     */
-    public function testConstructorWithNotIntShouldFail($invalidId)
-    {
-        try {
-            new FixtureIntIdentity($invalidId);
-        } catch (\Throwable $e) {
-            $this->assertFalse(is_int($invalidId));
-            return;
-        }
-        $this->fail('Should have thrown exception or error');
-    }
-
-    public function testConstructorWithNullShouldFail()
-    {
-        try {
-            new FixtureIntIdentity(null);
-        } catch (\Throwable $e) {
-            $this->assertTrue(true);
-            return;
-        }
-        $this->fail('Should have thrown exception or error');
-    }
+//    public function testConstructorWithIntShouldSuccess()
+//    {
+//        $this->assertInstanceOf(FixtureIntIdentity::class, new FixtureIntIdentity(25));
+//    }
+//
+//    /**
+//     * @dataProvider notIntData
+//     * @param $invalidId
+//     */
+//    public function testConstructorWithNotIntShouldFail($invalidId)
+//    {
+//        try {
+//            new FixtureIntIdentity($invalidId);
+//        } catch (\Throwable $e) {
+//            $this->assertFalse(is_int($invalidId));
+//            return;
+//        }
+//        $this->fail('Should have thrown exception or error');
+//    }
+//
+//    public function testConstructorWithNullShouldFail()
+//    {
+//        try {
+//            new FixtureIntIdentity(null);
+//        } catch (\Throwable $e) {
+//            $this->assertTrue(true);
+//            return;
+//        }
+//        $this->fail('Should have thrown exception or error');
+//    }
 
     public function testFromWithIntShouldSuccess()
     {
@@ -79,34 +79,35 @@ class IntIdentityTest extends TestCase
 
     public function testIdReturnTheProvidedId()
     {
-        $this->assertSame(123, FixtureIntIdentity::new(123)->id());
+        $this->assertSame(123, FixtureIntIdentity::from(123)->id());
     }
 
     public function testStringifyReturnTheProvidedIdAsString()
     {
-        $this->assertSame('123', (string) FixtureIntIdentity::new(123));
+        $this->assertSame('123', (string) FixtureIntIdentity::from(123));
     }
 
     public function testEqualsWithSameIdShouldSuccess()
     {
-        $id1 = FixtureIntIdentity::new(123);
-        $id2 = new FixtureIntIdentity(123);
+        $id1 = FixtureIntIdentity::from(123);
+        $id2 = FixtureIntIdentity::from(123);
 
+        $this->assertNotSame($id1, $id2);
         $this->assertTrue($id1->equalsTo($id1));
         $this->assertTrue($id1->equalsTo($id2));
     }
 
     public function testEqualsShouldDifferetIdShoudlFail()
     {
-        $id1 = FixtureIntIdentity::new(123);
+        $id1 = FixtureIntIdentity::from(123);
         // Test with same class
-        $this->assertFalse($id1->equalsTo(FixtureIntIdentity::new(124)));
+        $this->assertFalse($id1->equalsTo(FixtureIntIdentity::from(124)));
 
         // Test with something different
         $this->assertFalse($id1->equalsTo(123));
         $this->assertFalse($id1->equalsTo('123'));
         $this->assertFalse($id1->equalsTo(new stdClass()));
-        $this->assertFalse($id1->equalsTo(new FixtureStringIdentity('Foobar')));
+        $this->assertFalse($id1->equalsTo(FixtureStringIdentity::from('Foobar')));
     }
 
     /**

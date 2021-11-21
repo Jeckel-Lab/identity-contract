@@ -27,7 +27,7 @@ abstract class AbstractStringIdentity implements Identity
 
     private string $identity;
 
-    final public function __construct($id)
+    final private function __construct(string $id)
     {
         if (! $this->isValid($id)) {
             throw new InvalidIdentityArgumentException(sprintf('Invalid id %s provided', $id));
@@ -36,17 +36,13 @@ abstract class AbstractStringIdentity implements Identity
     }
 
     /**
-     * @param string|null $id
      * @return AbstractStringIdentity
      * @psalm-suppress MoreSpecificImplementedParamType
      * @psalm-suppress ImplementedReturnTypeMismatch
      */
-    public static function new($id = null)
+    public static function new()
     {
-        if (null === $id) {
-            $id = static::generateRandomIdentity();
-        }
-        return new static($id);
+        return new static(static::generateRandomIdentity());
     }
 
     /**
