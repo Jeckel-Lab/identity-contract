@@ -45,19 +45,19 @@ class StringIdentityTest extends TestCase
         $this->fail('Should have thrown exception or error');
     }
 
-    public function testNewWithStringShouldSuccess()
+    public function testFromWithStringShouldSuccess()
     {
-        $this->assertInstanceOf(FixtureStringIdentity::class, FixtureStringIdentity::new('barfoo'));
+        $this->assertInstanceOf(FixtureStringIdentity::class, FixtureStringIdentity::from('barfoo'));
     }
 
     /**
      * @dataProvider notStringData
      * @param $invalidId
      */
-    public function testNewWithNotStringShouldFail($invalidId)
+    public function testFromWithNotStringShouldFail($invalidId)
     {
         try {
-            FixtureStringIdentity::new($invalidId);
+            FixtureStringIdentity::from($invalidId);
         } catch (\Throwable $e) {
             $this->assertFalse(is_string($invalidId));
             return;
@@ -71,17 +71,6 @@ class StringIdentityTest extends TestCase
         $this->assertInstanceOf(FixtureStringIdentity::class, $id1);
 
         $id2 = FixtureStringIdentity::new();
-        $this->assertInstanceOf(FixtureStringIdentity::class, $id2);
-
-        $this->assertNotEquals($id1->id(), $id2->id());
-    }
-
-    public function testNewWithNullShouldGenerateRandomId()
-    {
-        $id1 = FixtureStringIdentity::new(null);
-        $this->assertInstanceOf(FixtureStringIdentity::class, $id1);
-
-        $id2 = FixtureStringIdentity::new(null);
         $this->assertInstanceOf(FixtureStringIdentity::class, $id2);
 
         $this->assertNotEquals($id1->id(), $id2->id());
@@ -125,6 +114,7 @@ class StringIdentityTest extends TestCase
     public function notStringData(): array
     {
         return [
+            [null],
             [123],
             [true],
             [false],

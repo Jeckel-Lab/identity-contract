@@ -46,19 +46,19 @@ class IntIdentityTest extends TestCase
         $this->fail('Should have thrown exception or error');
     }
 
-    public function testNewWithIntShouldSuccess()
+    public function testFromWithIntShouldSuccess()
     {
-        $this->assertInstanceOf(FixtureIntIdentity::class, FixtureIntIdentity::new(25));
+        $this->assertInstanceOf(FixtureIntIdentity::class, FixtureIntIdentity::from(25));
     }
 
     /**
      * @dataProvider notIntData
      * @param $invalidId
      */
-    public function testNewWithNotIntShouldFail($invalidId)
+    public function testFromWithNotIntShouldFail($invalidId)
     {
         try {
-            FixtureIntIdentity::new($invalidId);
+            FixtureIntIdentity::from($invalidId);
         } catch (\Throwable $e) {
             $this->assertFalse(is_int($invalidId));
             return;
@@ -66,18 +66,7 @@ class IntIdentityTest extends TestCase
         $this->fail('Should have thrown exception or error');
     }
 
-    public function testNewWithNullShouldFail()
-    {
-        try {
-            FixtureIntIdentity::new(null);
-        } catch (\Throwable $e) {
-            $this->assertInstanceOf(EnableToGenerateNewIdentityException::class, $e);
-            return;
-        }
-        $this->fail('Should have thrown exception or error');
-    }
-
-    public function testNewWithoutArgumentsShouldFail()
+    public function testNewShouldFail()
     {
         try {
             FixtureIntIdentity::new();
@@ -126,6 +115,7 @@ class IntIdentityTest extends TestCase
     public function notIntData(): array
     {
         return [
+            [null],
             ['1213'],
             ['bjkblk'],
             [true],
