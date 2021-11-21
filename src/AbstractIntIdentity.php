@@ -52,6 +52,17 @@ abstract class AbstractIntIdentity implements Identity
     }
 
     /**
+     * @param int $id
+     * @return AbstractIntIdentity
+     * @psalm-suppress MoreSpecificImplementedParamType
+     * @psalm-suppress ImplementedReturnTypeMismatch
+     */
+    public static function from($id)
+    {
+        return new static($id);
+    }
+
+    /**
      * @return string
      */
     public function __toString(): string

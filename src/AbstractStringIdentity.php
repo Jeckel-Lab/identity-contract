@@ -51,6 +51,17 @@ abstract class AbstractStringIdentity implements Identity
 
     /**
      * @param string $id
+     * @return AbstractStringIdentity
+     * @psalm-suppress MoreSpecificImplementedParamType
+     * @psalm-suppress ImplementedReturnTypeMismatch
+     */
+    public static function from($id)
+    {
+        return new static($id);
+    }
+
+    /**
+     * @param string $id
      * @return bool
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
