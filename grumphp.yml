@@ -1,4 +1,13 @@
 grumphp:
+  testsuites:
+    github_actions:
+      tasks:
+        - composer_require_checker
+        - phpcs
+        - phpmd
+        - phpstan
+        - phpunit
+        - psalm
   tasks:
     phpcs:
       whitelist_patterns:
