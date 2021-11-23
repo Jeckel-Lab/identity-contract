@@ -95,6 +95,14 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/phpunit" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-text-template" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-invoker" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/thecodingmachine/safe" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sanmai/later" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sanmai/pipeline" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/justinrainbow/json-schema" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/infection/abstract-testframework-adapter" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/infection/extension-installer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/infection/infection" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/infection/include-interceptor" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

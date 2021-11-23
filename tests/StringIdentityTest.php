@@ -8,6 +8,7 @@
 namespace Tests\JeckelLab\IdentityContract;
 
 use Tests\JeckelLab\IdentityContract\Fixtures\FixtureIntIdentity;
+use Tests\JeckelLab\IdentityContract\Fixtures\FixtureStringCustomGeneratorIdentity;
 use Tests\JeckelLab\IdentityContract\Fixtures\FixtureStringIdentity;
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -65,7 +66,7 @@ class StringIdentityTest extends TestCase
         $this->fail('Should have thrown exception or error');
     }
 
-    public function testNewWithoutArgumentsShouldGenerateRandomId()
+    public function testNewShouldGenerateRandomId()
     {
         $id1 = FixtureStringIdentity::new();
         $this->assertInstanceOf(FixtureStringIdentity::class, $id1);
@@ -74,6 +75,9 @@ class StringIdentityTest extends TestCase
         $this->assertInstanceOf(FixtureStringIdentity::class, $id2);
 
         $this->assertNotEquals($id1->id(), $id2->id());
+
+        $customId = FixtureStringCustomGeneratorIdentity::new();
+        $this->assertInstanceOf(FixtureStringCustomGeneratorIdentity::class, $customId);
     }
 
     public function testIdReturnTheProvidedId()

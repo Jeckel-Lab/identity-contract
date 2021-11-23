@@ -57,10 +57,14 @@ class UuidIdentityTest extends TestCase
             FixtureUuidIdentity::class,
             FixtureUuidIdentity::from("f1a6e508-3bb4-4051-b854-746ac239d0e2")
         );
+        $this->assertInstanceOf(
+            FixtureUuidIdentity::class,
+            FixtureUuidIdentity::from("f1a6e508-3bb4-4051-b854-746ac239d0e2")
+        );
     }
 
     /**
-     * @dataProvider notStringData
+     * @dataProvider notValidUuidData
      * @param $invalidId
      */
     public function testFromWithNotUuidShouldFail($invalidId)
@@ -130,7 +134,7 @@ class UuidIdentityTest extends TestCase
     /**
      * @return list<list<mixed>>
      */
-    public function notStringData(): array
+    public function notValidUuidData(): array
     {
         return [
             [null],
@@ -139,7 +143,12 @@ class UuidIdentityTest extends TestCase
             [true],
             [false],
             [[123, 1254]],
-            [new stdClass()]
+            [new stdClass()],
+            // close but invalid uuid
+            ["4fb97fe3-09db-4814-a7a1-1cd05a1702dc-vhkvl"],
+            ["cgkck-4fb97fe3-09db-4814-a7a1-1cd05a1702dc"],
+            ["4fB97fE3-09db-4814-a7a1-1cd05a1702dc"],
+            ["82381629-db1a-4e6f-8edb-957ff80a31c8\n"]
         ];
     }
 }
