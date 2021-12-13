@@ -12,41 +12,11 @@ use Tests\JeckelLab\IdentityContract\Fixtures\FixtureStringCustomGeneratorIdenti
 use Tests\JeckelLab\IdentityContract\Fixtures\FixtureStringIdentity;
 use PHPUnit\Framework\TestCase;
 use stdClass;
+use Throwable;
 
 class StringIdentityTest extends TestCase
 {
-//    public function testConstructorWithStringShouldSuccess()
-//    {
-//        $this->assertInstanceOf(FixtureStringIdentity::class, new FixtureStringIdentity('foobar'));
-//    }
-//
-//    /**
-//     * @dataProvider notStringData
-//     * @param $invalidId
-//     */
-//    public function testConstructorWithNotStringShouldFail($invalidId)
-//    {
-//        try {
-//            new FixtureStringIdentity($invalidId);
-//        } catch (\Throwable $e) {
-//            $this->assertFalse(is_string($invalidId));
-//            return;
-//        }
-//        $this->fail('Should have thrown exception or error');
-//    }
-//
-//    public function testConstructorWithNullShouldFail()
-//    {
-//        try {
-//            new FixtureStringIdentity(null);
-//        } catch (\Throwable $e) {
-//            $this->assertTrue(true);
-//            return;
-//        }
-//        $this->fail('Should have thrown exception or error');
-//    }
-
-    public function testFromWithStringShouldSuccess()
+    public function testFromWithStringShouldSuccess(): void
     {
         $this->assertInstanceOf(FixtureStringIdentity::class, FixtureStringIdentity::from('barfoo'));
     }
@@ -55,18 +25,13 @@ class StringIdentityTest extends TestCase
      * @dataProvider notStringData
      * @param $invalidId
      */
-    public function testFromWithNotStringShouldFail($invalidId)
+    public function testFromWithNotStringShouldFail($invalidId): void
     {
-        try {
-            FixtureStringIdentity::from($invalidId);
-        } catch (\Throwable $e) {
-            $this->assertFalse(is_string($invalidId));
-            return;
-        }
-        $this->fail('Should have thrown exception or error');
+        $this->expectException(Throwable::class);
+        FixtureStringIdentity::from($invalidId);
     }
 
-    public function testNewShouldGenerateRandomId()
+    public function testNewShouldGenerateRandomId(): void
     {
         $id1 = FixtureStringIdentity::new();
         $this->assertInstanceOf(FixtureStringIdentity::class, $id1);
@@ -80,37 +45,40 @@ class StringIdentityTest extends TestCase
         $this->assertInstanceOf(FixtureStringCustomGeneratorIdentity::class, $customId);
     }
 
-    public function testIdReturnTheProvidedId()
+    public function testIdReturnTheProvidedId(): void
     {
         $this->assertSame('foobar', FixtureStringIdentity::from('foobar')->id());
     }
 
-    public function testStringifyReturnTheProvidedIdAsString()
+    public function testStringifyReturnTheProvidedIdAsString(): void
     {
         $this->assertSame('foobar', (string) FixtureStringIdentity::from('foobar'));
     }
 
-    public function testEqualsWithSameIdShouldSuccess()
+    public function testEqualsWithSameIdShouldSuccess(): void
     {
         $id1 = FixtureStringIdentity::from('foobar');
         $id2 = FixtureStringIdentity::from('foobar');
 
-        $this->assertNotSame($id1, $id2);
-        $this->assertTrue($id1->equalsTo($id1));
-        $this->assertTrue($id1->equalsTo($id2));
+        $this->assertSame($id1, $id2);
+        $this->assertTrue($id1->equals($id1));
+        $this->assertTrue($id1->equals($id2));
+
+        $this->assertFalse($id1->equals(FixtureStringIdentity::from('foobarbaz')));
+        $this->assertFalse($id1->equals(FixtureIntIdentity::from(123)));
     }
 
-    public function testEqualsShouldDifferetIdShoudlFail()
+    /**
+     * @param mixed $id
+     * @return void
+     * @dataProvider notStringData
+     */
+    public function testEqualsWithDifferentIdShouldFail(mixed $id): void
     {
+        $this->expectException(\TypeError::class);
         $id1 = FixtureStringIdentity::from('foobar');
-        // Test with same class
-        $this->assertFalse($id1->equalsTo(FixtureStringIdentity::from('foobarbaz')));
 
-        // Test with something different
-        $this->assertFalse($id1->equalsTo(123));
-        $this->assertFalse($id1->equalsTo('123'));
-        $this->assertFalse($id1->equalsTo(new stdClass()));
-        $this->assertFalse($id1->equalsTo(FixtureIntIdentity::from(123)));
+        $id1->equals($id);
     }
 
     /**

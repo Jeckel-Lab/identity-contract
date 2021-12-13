@@ -21,21 +21,20 @@ abstract class AbstractUuidIdentity extends AbstractStringIdentity
     /**
      * @return string
      */
-    protected static function generateRandomIdentity(): string
+    protected static function generateNewIdentity(): string
     {
         // @spalm-suppress UnsafeInstantiation
         return Uuid::uuid4()->toString();
     }
 
     /**
-     * This is an example of the Template pattern, where this method is defined (templated) and used here,
-     * but implemented in a subclass.
-     *
-     * @param string $id
+     * @param int|string $id
+     * @psalm-param string $id
      * @return bool
+     * @psalm-suppress RedundantCast
      */
-    protected function isValid(string $id): bool
+    public function isValid(int|string $id): bool
     {
-        return (preg_match('`^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$`D', $id) === 1);
+        return (preg_match('`^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$`D', (string) $id) === 1);
     }
 }

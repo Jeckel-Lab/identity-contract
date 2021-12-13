@@ -9,78 +9,27 @@ declare(strict_types=1);
 
 namespace JeckelLab\IdentityContract;
 
-use JeckelLab\Contract\Application\Domain\Identity\Exception\InvalidIdentityArgumentException;
-use JeckelLab\Contract\Application\Domain\Identity\Identity;
-
 /**
  * Class StringIdentityAbstract
  * @package JeckelLab\IdentityContract
- * @implements Identity<string>
+ * @extends AbstractIdentity<string>
  * @psalm-immutable
  */
-abstract class AbstractStringIdentity implements Identity
+abstract class AbstractStringIdentity extends AbstractIdentity
 {
-    /**
-     * @use IdentityEqualityTrait<string>
-     */
-    use IdentityEqualityTrait;
-
-    private string $identity;
-
-    final private function __construct(string $id)
-    {
-        if (! $this->isValid($id)) {
-            throw new InvalidIdentityArgumentException(sprintf('Invalid id %s provided', $id));
-        }
-        $this->identity = $id;
-    }
-
-    /**
-     * @return AbstractStringIdentity
-     * @psalm-suppress MoreSpecificImplementedParamType
-     * @psalm-suppress ImplementedReturnTypeMismatch
-     */
-    public static function new()
-    {
-        return new static(static::generateRandomIdentity());
-    }
-
-    /**
-     * @param string $id
-     * @return AbstractStringIdentity
-     * @psalm-suppress MoreSpecificImplementedParamType
-     * @psalm-suppress ImplementedReturnTypeMismatch
-     */
-    public static function from($id)
-    {
-        return new static($id);
-    }
-
-    /**
-     * @param string $id
-     * @return bool
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    protected function isValid(string $id): bool
-    {
-        return true;
-    }
-
-    protected static function generateRandomIdentity(): string
+    protected static function generateNewIdentity(): int|string
     {
         return md5(microtime(false));
     }
 
-    public function id()
-    {
-        return $this->identity;
-    }
-
     /**
-     * @return string
+     * @param int|string $id
+     * @psalm-param string $id
+     * @return bool
+     * @psalm-suppress RedundantCondition
      */
-    public function __toString(): string
+    public function isValid(int|string $id): bool
     {
-        return $this->identity;
+        return is_string($id);
     }
 }

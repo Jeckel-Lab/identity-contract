@@ -10,14 +10,14 @@
     ],
     "require": {
         "php": ">=8.0",
-        "jeckel-lab/contract": "dev-main",
+        "jeckel-lab/contract": "dev-feature/identity-php8",
         "ramsey/uuid": "^4.1"
     },
     "require-dev": {
         "phpro/grumphp": "^1.5",
         "vimeo/psalm": "^4.12",
         "phpstan/phpstan": "^1.2",
-        "phpmd/phpmd": "^2.10",
+        "phpmd/phpmd": "^2.11",
         "squizlabs/php_codesniffer": "^3.6",
         "roave/security-advisories": "dev-latest",
         "maglnet/composer-require-checker": "^3.5",
