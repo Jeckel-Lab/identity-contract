@@ -1,6 +1,7 @@
 [![Latest Stable Version](https://poser.pugx.org/jeckel-lab/identity-contract/v/stable)](https://packagist.org/packages/jeckel-lab/identity-contract)
 [![Total Downloads](https://poser.pugx.org/jeckel-lab/identity-contract/downloads)](https://packagist.org/packages/jeckel-lab/identity-contract)
 [![Build Status](https://github.com/jeckel-lab/identity-contract/workflows/validate/badge.svg)](https://github.com/Jeckel-Lab/identity-contract/actions)
+[![codecov](https://codecov.io/gh/Jeckel-Lab/identity-contract/branch/main/graph/badge.svg?token=un0NZq3Hui)](https://codecov.io/gh/Jeckel-Lab/identity-contract)
 [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2FJeckel-Lab%2Fidentity-contract%2Fmain)](https://dashboard.stryker-mutator.io/reports/github.com/Jeckel-Lab/identity-contract/main)
 
 # Identity-contract
