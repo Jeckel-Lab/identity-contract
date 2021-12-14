@@ -3,3 +3,4 @@
 /.phpcs-cache
 /.idea
 /.phpunit.result.cache
+/coverage

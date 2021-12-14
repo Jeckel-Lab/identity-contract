@@ -3,6 +3,7 @@ grumphp:
     github_actions:
       tasks:
         - composer_require_checker
+        - infection
         - phpcs
         - phpmd
         - phpstan
@@ -47,3 +48,4 @@ grumphp:
         - "main"
       additional_modifiers: ''
       allow_detached_head: true
+    infection:

@@ -17,11 +17,12 @@
         "phpro/grumphp": "^1.5",
         "vimeo/psalm": "^4.12",
         "phpstan/phpstan": "^1.2",
-        "phpmd/phpmd": "^2.10",
+        "phpmd/phpmd": "^2.11",
         "squizlabs/php_codesniffer": "^3.6",
         "roave/security-advisories": "dev-latest",
-        "maglnet/composer-require-checker": "^3.5",
-        "phpunit/phpunit": "^9.5"
+        "maglnet/composer-require-checker": "^3||^4",
+        "phpunit/phpunit": "^9.5",
+        "infection/infection": "^0.25"
     },
     "suggest": {
         "vimeo/psalm": "Using psalm with this 'contract' will enable immutability and strong typing verification"
