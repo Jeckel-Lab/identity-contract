@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": ">=8.0",
-        "jeckel-lab/contract": "dev-feature/identity-php8",
+        "jeckel-lab/contract": "dev-main",
         "ramsey/uuid": "^4.1"
     },
     "require-dev": {
