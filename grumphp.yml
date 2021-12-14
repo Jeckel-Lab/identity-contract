@@ -3,11 +3,9 @@ grumphp:
     github_actions:
       tasks:
         - composer_require_checker
-        - infection
         - phpcs
         - phpmd
         - phpstan
-        - phpunit
         - psalm
   tasks:
     phpcs:

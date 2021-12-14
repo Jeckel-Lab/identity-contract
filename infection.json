@@ -11,5 +11,10 @@
     },
     "mutators": {
         "@default": true
+    },
+    "logs": {
+        "badge": {
+            "branch": "main"
+        }
     }
 }
