@@ -75,10 +75,20 @@ class StringIdentityTest extends TestCase
      */
     public function testEqualsWithDifferentIdShouldFail(mixed $id): void
     {
-        $this->expectException(\TypeError::class);
         $id1 = FixtureStringIdentity::from('foobar');
+        $this->assertFalse($id1->equals($id));
+    }
 
-        $id1->equals($id);
+    /**
+     * @return void
+     * @throws \JsonException
+     */
+    public function testJsonSerialization(): void
+    {
+        $this->assertEquals(
+            '"foobar"',
+            json_encode(FixtureStringIdentity::from('foobar'), JSON_THROW_ON_ERROR)
+        );
     }
 
     /**

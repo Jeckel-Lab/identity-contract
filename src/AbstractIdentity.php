@@ -75,10 +75,13 @@ abstract class AbstractIdentity implements Identity
      * @psalm-param IdentityType $id
      * @return bool
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @infection-ignore-all
      */
     public function isValid(int|string $id): bool
     {
+        // @codeCoverageIgnoreStart
         return true;
+        // @codeCoverageIgnoreEnd
     }
 
     /**
@@ -88,22 +91,19 @@ abstract class AbstractIdentity implements Identity
     abstract protected static function generateNewIdentity(): int|string;
 
     /**
-     * @param static $object
+     * @param mixed $other
      * @return bool
-     * @psalm-suppress DocblockTypeContradiction
      */
-    public function equals(Equality $object): bool
+    public function equals(mixed $other): bool
     {
-        if (! is_object($object)) {
-            return false;
-        }
-        return get_class($object) === get_class($this) && $this->identity === $object->identity;
+        return $this === $other;
     }
 
     /**
-     * @return IdentityType
+     * @return int|string
+     * @psalm-return IdentityType
      */
-    public function id()
+    public function id(): int|string
     {
         return $this->identity;
     }

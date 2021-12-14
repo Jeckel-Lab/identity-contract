@@ -73,9 +73,20 @@ class IntIdentityTest extends TestCase
      */
     public function testEqualsWithDifferentIdShouldFail(mixed $id): void
     {
-        $this->expectException(\TypeError::class);
         $id1 = FixtureIntIdentity::from(123);
-        $id1->equals($id);
+        $this->assertFalse($id1->equals($id));
+    }
+
+    /**
+     * @return void
+     * @throws \JsonException
+     */
+    public function testJsonSerialization(): void
+    {
+        $this->assertEquals(
+            123,
+            json_encode(FixtureIntIdentity::from(123), JSON_THROW_ON_ERROR)
+        );
     }
 
     /**

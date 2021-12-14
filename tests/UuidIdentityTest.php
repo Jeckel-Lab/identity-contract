@@ -97,10 +97,20 @@ class UuidIdentityTest extends TestCase
      */
     public function testEqualsWithDifferentIdShouldFail(mixed $id): void
     {
-        $this->expectException(\TypeError::class);
         $id1 = FixtureUuidIdentity::from("4fb97fe3-09db-4814-a7a1-1cd05a1702dc");
-        // Test with something different
         $this->assertFalse($id1->equals($id));
+    }
+
+    /**
+     * @return void
+     * @throws \JsonException
+     */
+    public function testJsonSerialization(): void
+    {
+        $this->assertEquals(
+            '"4fb97fe3-09db-4814-a7a1-1cd05a1702dc"',
+            json_encode(FixtureUuidIdentity::from("4fb97fe3-09db-4814-a7a1-1cd05a1702dc"), JSON_THROW_ON_ERROR)
+        );
     }
 
     /**
