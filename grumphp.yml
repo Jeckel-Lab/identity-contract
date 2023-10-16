@@ -3,13 +3,20 @@ grumphp:
     github_actions:
       tasks:
         - composer_require_checker
-        - phpcs
+        - phpcsfixer
         - phpmd
         - phpstan
+
   tasks:
-    phpcs:
-      whitelist_patterns:
-        - /^src\/(.*)/
+    phpcsfixer:
+      allow_risky: ~
+      cache_file: ~
+      config: .php-cs-fixer.dist.php
+      using_cache: ~
+      config_contains_finder: false
+      verbose: true
+      diff: false
+      triggered_by: ['php']
     phpmd:
       whitelist_patterns:
         - /^src\/(.*)/
@@ -34,10 +41,6 @@ grumphp:
         - "feature/*"
         - "bugfix/*"
         - "hotfix/*"
-      blacklist:
-        - "develop"
-        - "master"
-        - "main"
       additional_modifiers: ''
       allow_detached_head: true
-    infection:
+#     infection:

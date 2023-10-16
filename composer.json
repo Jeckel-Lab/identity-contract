@@ -51,5 +51,10 @@
             "phpro/grumphp": true,
             "phpstan/extension-installer": true
         }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit --testdox",
+        "cs-fix": "vendor/bin/php-cs-fixer fix --diff --verbose",
+        "grumphp": "vendor/bin/grumphp run"
     }
 }

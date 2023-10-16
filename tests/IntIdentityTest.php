@@ -23,7 +23,7 @@ class IntIdentityTest extends TestCase
 {
     public function testFromWithIntShouldSuccess(): void
     {
-        $this->assertInstanceOf(FixtureIntIdentity::class, FixtureIntIdentity::from(25));
+        self::assertInstanceOf(FixtureIntIdentity::class, FixtureIntIdentity::from(25));
     }
 
     /**
@@ -44,12 +44,12 @@ class IntIdentityTest extends TestCase
 
     public function testIdReturnTheProvidedId(): void
     {
-        $this->assertSame(123, FixtureIntIdentity::from(123)->id());
+        self::assertSame(123, FixtureIntIdentity::from(123)->id());
     }
 
     public function testStringifyReturnTheProvidedIdAsString(): void
     {
-        $this->assertSame('123', (string) FixtureIntIdentity::from(123));
+        self::assertSame('123', (string) FixtureIntIdentity::from(123));
     }
 
     public function testEqualsWithSameIdShouldSuccess(): void
@@ -57,13 +57,13 @@ class IntIdentityTest extends TestCase
         $id1 = FixtureIntIdentity::from(123);
         $id2 = FixtureIntIdentity::from(123);
 
-        $this->assertSame($id1, $id2);
-        $this->assertTrue($id1->equals($id1));
-        $this->assertTrue($id1->equals($id2));
+        self::assertSame($id1, $id2);
+        self::assertTrue($id1->equals($id1));
+        self::assertTrue($id1->equals($id2));
 
         // Test with same class
-        $this->assertFalse($id1->equals(FixtureIntIdentity::from(124)));
-        $this->assertFalse($id1->equals(FixtureStringIdentity::from('Foobar')));
+        self::assertFalse($id1->equals(FixtureIntIdentity::from(124)));
+        self::assertFalse($id1->equals(FixtureStringIdentity::from('Foobar')));
     }
 
     /**
@@ -74,7 +74,7 @@ class IntIdentityTest extends TestCase
     public function testEqualsWithDifferentIdShouldFail(mixed $id): void
     {
         $id1 = FixtureIntIdentity::from(123);
-        $this->assertFalse($id1->equals($id));
+        self::assertFalse($id1->equals($id));
     }
 
     /**
@@ -83,7 +83,7 @@ class IntIdentityTest extends TestCase
      */
     public function testJsonSerialization(): void
     {
-        $this->assertEquals(
+        self::assertEquals(
             123,
             json_encode(FixtureIntIdentity::from(123), JSON_THROW_ON_ERROR)
         );
@@ -92,7 +92,7 @@ class IntIdentityTest extends TestCase
     /**
      * @return list<list<mixed>>
      */
-    public function notIntData(): array
+    public static function notIntData(): array
     {
         return [
             [null],

@@ -11,7 +11,6 @@ on:
 
 jobs:
   global-qa-tests:
-    name: PHP ${{ matrix.php }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
@@ -21,6 +20,7 @@ jobs:
 
     env:
       extensions: ctype, dom, intl, json, mbstring, openssl, xml, zip, zlib
+      key: cache-v1
 
     steps:
       - name: Checkout
