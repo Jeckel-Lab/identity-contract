@@ -29,7 +29,7 @@ Also:
 
 **Int Identity**
 ```PHP
-final class CarId extends AbstractIntIdentity {}
+final readonly class CarId extends AbstractIntIdentity {}
 
 $id = CarId::from(25);
 ```
@@ -38,7 +38,7 @@ $id = CarId::from(25);
 ```PHP
 use JeckelLab\IdentityContract\AbstractUuidIdentity;
 
-final class UserId extends AbstractUuidIdentity {}
+final readonly class UserId extends AbstractUuidIdentity {}
 
 $id = UserId::from("d2fbc6c0-0497-42f1-8ece-8840641b67f0");
 
