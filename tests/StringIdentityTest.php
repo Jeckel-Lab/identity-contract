@@ -7,6 +7,7 @@
 
 namespace Tests\JeckelLab\IdentityContract;
 
+use JeckelLab\IdentityContract\IdRepository;
 use Tests\JeckelLab\IdentityContract\Fixtures\FixtureIntIdentity;
 use Tests\JeckelLab\IdentityContract\Fixtures\FixtureStringCustomGeneratorIdentity;
 use Tests\JeckelLab\IdentityContract\Fixtures\FixtureStringIdentity;
@@ -18,31 +19,32 @@ class StringIdentityTest extends TestCase
 {
     public function testFromWithStringShouldSuccess(): void
     {
-        self::assertInstanceOf(FixtureStringIdentity::class, FixtureStringIdentity::from('barfoo'));
+        $identity = FixtureStringIdentity::from('barfoo');
+        self::assertEquals('barfoo', $identity->id());
+        self::assertEquals('barfoo', (string) $identity);
+        self::assertSame($identity, IdRepository::get(FixtureStringIdentity::class, 'barfoo'));
     }
 
     /**
      * @dataProvider notStringData
-     * @param $invalidId
+     * @param mixed $invalidId
      */
-    public function testFromWithNotStringShouldFail($invalidId): void
+    public function testFromWithNotStringShouldFail(mixed $invalidId): void
     {
         $this->expectException(Throwable::class);
+        /** @phpstan-ignore-next-line */
         FixtureStringIdentity::from($invalidId);
     }
 
     public function testNewShouldGenerateRandomId(): void
     {
         $id1 = FixtureStringIdentity::new();
-        self::assertInstanceOf(FixtureStringIdentity::class, $id1);
-
         $id2 = FixtureStringIdentity::new();
-        self::assertInstanceOf(FixtureStringIdentity::class, $id2);
-
         self::assertNotEquals($id1->id(), $id2->id());
 
         $customId = FixtureStringCustomGeneratorIdentity::new();
-        self::assertInstanceOf(FixtureStringCustomGeneratorIdentity::class, $customId);
+        self::assertNotEquals($id1->id(), $customId->id());
+        self::assertNotEquals(get_class($customId), get_class($id2));
     }
 
     public function testIdReturnTheProvidedId(): void

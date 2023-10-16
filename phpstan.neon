@@ -2,5 +2,5 @@ parameters:
 	level: 9
 	paths:
 		- src
-	excludes_analyse:
-	    - tests/*
+		- tests
+	checkGenericClassInNonGenericObjectType: false

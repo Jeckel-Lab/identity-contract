@@ -23,17 +23,11 @@ use JeckelLab\Contract\Domain\Identity\Identity;
 abstract class AbstractIdentity implements Identity
 {
     /**
-     * @var array<class-string<Identity<int|string>>, array<string|int, Identity<int|string>>>
-     */
-    private static array $instances = [];
-
-    /**
      * @var IdentityType
      */
     private string|int $identity;
 
     /**
-     * @param int|string $id
      * @psalm-param IdentityType $id
      */
     final private function __construct(int|string $id)
@@ -44,20 +38,16 @@ abstract class AbstractIdentity implements Identity
         $this->identity = $id;
     }
 
-    /**
-     * @param int|string $identity
-     * @return static
-     */
     public static function from(int|string $identity): static
     {
-        if (isset(self::$instances[static::class][$identity])) {
-            /** @var static $instance */
-            $instance = self::$instances[static::class][$identity];
-            return $instance;
+        if (IdRepository::has(static::class, $identity)) {
+            /** @var static $identityInstance */
+            $identityInstance = IdRepository::get(static::class, $identity);
+            return $identityInstance;
         }
-
-        /** @psalm-suppress UnsafeGenericInstantiation */
-        return self::$instances[static::class][$identity] = new static($identity);
+        $identityInstance = new static($identity);
+        IdRepository::set($identityInstance);
+        return $identityInstance;
     }
 
     /**
@@ -65,9 +55,10 @@ abstract class AbstractIdentity implements Identity
      */
     public static function new(): static
     {
-        $identity = static::generateNewIdentity();
-        /** @psalm-suppress UnsafeGenericInstantiation */
-        return self::$instances[static::class][$identity] = new static($identity);
+        $id = static::generateNewIdentity();
+        $identity = new static($id);
+        IdRepository::set($identity);
+        return $identity;
     }
 
     /**

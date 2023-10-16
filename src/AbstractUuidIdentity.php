@@ -35,6 +35,9 @@ abstract class AbstractUuidIdentity extends AbstractStringIdentity
      */
     public function isValid(int|string $id): bool
     {
-        return (preg_match('`^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$`D', (string) $id) === 1);
+        if (is_int($id)) {
+            return false;
+        }
+        return (preg_match('`^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$`D', $id) === 1);
     }
 }

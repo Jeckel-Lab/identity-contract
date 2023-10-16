@@ -8,6 +8,7 @@
 namespace Tests\JeckelLab\IdentityContract;
 
 use JeckelLab\IdentityContract\Exception\EnableToGenerateNewIdentityException;
+use JeckelLab\IdentityContract\IdRepository;
 use Tests\JeckelLab\IdentityContract\Fixtures\FixtureIntIdentity;
 use Tests\JeckelLab\IdentityContract\Fixtures\FixtureStringIdentity;
 use PHPUnit\Framework\TestCase;
@@ -23,16 +24,18 @@ class IntIdentityTest extends TestCase
 {
     public function testFromWithIntShouldSuccess(): void
     {
-        self::assertInstanceOf(FixtureIntIdentity::class, FixtureIntIdentity::from(25));
+        $identity = FixtureIntIdentity::from(25);
+        self::assertSame($identity, IdRepository::get(FixtureIntIdentity::class, 25));
     }
 
     /**
      * @dataProvider notIntData
      * @param mixed $invalidId
      */
-    public function testFromWithNotIntShouldFail($invalidId): void
+    public function testFromWithNotIntShouldFail(mixed $invalidId): void
     {
         $this->expectException(Throwable::class);
+        /** @phpstan-ignore-next-line */
         FixtureIntIdentity::from($invalidId);
     }
 
@@ -103,5 +106,4 @@ class IntIdentityTest extends TestCase
             [new stdClass()]
         ];
     }
-
 }

@@ -53,8 +53,14 @@
         }
     },
     "scripts": {
-        "test": "vendor/bin/phpunit --testdox",
         "cs-fix": "vendor/bin/php-cs-fixer fix --diff --verbose",
-        "grumphp": "vendor/bin/grumphp run"
+        "grumphp": "vendor/bin/grumphp run",
+        "infection": "vendor/bin/infection --show-mutations",
+        "phpstan": "vendor/bin/phpstan",
+        "test": "vendor/bin/phpunit --testdox",
+        "test-coverage": [
+            "Composer\\Config::disableProcessTimeout",
+            "XDEBUG_MODE=coverage vendor/bin/phpunit --testdox --coverage-html=.build/coverage"
+        ]
     }
 }

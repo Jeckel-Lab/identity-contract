@@ -9,11 +9,13 @@ declare(strict_types=1);
 
 namespace Tests\JeckelLab\IdentityContract;
 
+use JeckelLab\IdentityContract\IdRepository;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Tests\JeckelLab\IdentityContract\Fixtures\FixtureIntIdentity;
 use Tests\JeckelLab\IdentityContract\Fixtures\FixtureStringIdentity;
 use Tests\JeckelLab\IdentityContract\Fixtures\FixtureUuidIdentity;
+use Throwable;
 
 /**
  * Class UuidIdentityTest
@@ -24,39 +26,35 @@ class UuidIdentityTest extends TestCase
 {
     public function testFromWithValidUuidShouldSuccess(): void
     {
-        self::assertInstanceOf(
-            FixtureUuidIdentity::class,
-            FixtureUuidIdentity::from("f1a6e508-3bb4-4051-b854-746ac239d0e2")
+        $uuid = "f1a6e508-3bb4-4051-b854-746ac239d0e2";
+        $identity = FixtureUuidIdentity::from($uuid);
+        self::assertEquals(
+            $uuid,
+            $identity->id()
         );
-        self::assertInstanceOf(
-            FixtureUuidIdentity::class,
-            FixtureUuidIdentity::from("f1a6e508-3bb4-4051-b854-746ac239d0e2")
+        self::assertSame(
+            $identity,
+            FixtureUuidIdentity::from($uuid)
         );
     }
 
     /**
      * @dataProvider notValidUuidData
-     * @param $invalidId
+     * @param mixed $invalidId
      */
-    public function testFromWithNotUuidShouldFail($invalidId): void
+    public function testFromWithNotUuidShouldFail(mixed $invalidId): void
     {
-        try {
-            FixtureUuidIdentity::from($invalidId);
-        } catch (\Throwable $e) {
-            self::assertTrue(true);
-            return;
-        }
-        $this->fail('Should have thrown exception or error');
+        $this->expectException(Throwable::class);
+        /** @phpstan-ignore-next-line */
+        FixtureUuidIdentity::from($invalidId);
     }
 
     public function testNewWithoutArgumentsShouldGenerateRandomId(): void
     {
         $id1 = FixtureUuidIdentity::new();
-        self::assertInstanceOf(FixtureUuidIdentity::class, $id1);
+        self::assertSame($id1, IdRepository::get(FixtureUuidIdentity::class, $id1->id()));
 
         $id2 = FixtureUuidIdentity::new();
-        self::assertInstanceOf(FixtureUuidIdentity::class, $id2);
-
         self::assertNotEquals($id1->id(), $id2->id());
     }
 
