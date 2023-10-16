@@ -9,7 +9,7 @@ use JeckelLab\IdentityContract\AbstractStringIdentity;
  * @package Tests\JeckelLab\IdentityContract\Fixtures
  * @psalm-immutable
  */
-class FixtureStringCustomGeneratorIdentity extends AbstractStringIdentity
+readonly class FixtureStringCustomGeneratorIdentity extends AbstractStringIdentity
 {
     protected static function generateRandomIdentity(): string
     {

@@ -7,6 +7,7 @@
 
 namespace Tests\JeckelLab\IdentityContract;
 
+use JeckelLab\IdentityContract\Exception\CloningException;
 use JeckelLab\IdentityContract\Exception\EnableToGenerateNewIdentityException;
 use JeckelLab\IdentityContract\IdRepository;
 use Tests\JeckelLab\IdentityContract\Fixtures\FixtureIntIdentity;
@@ -90,6 +91,13 @@ class IntIdentityTest extends TestCase
             123,
             json_encode(FixtureIntIdentity::from(123), JSON_THROW_ON_ERROR)
         );
+    }
+
+    public function testCloningShouldFail(): void
+    {
+        $this->expectException(CloningException::class);
+        $identity = FixtureIntIdentity::from(123);
+        clone($identity);
     }
 
     /**

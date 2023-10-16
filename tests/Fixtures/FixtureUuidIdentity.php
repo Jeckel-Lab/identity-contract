@@ -16,4 +16,4 @@ use JeckelLab\IdentityContract\AbstractUuidIdentity;
  * @package Tests\JeckelLab\IdentityContract\Fixtures
  * @psalm-immutable
  */
-class FixtureUuidIdentity extends AbstractUuidIdentity {}
+readonly class FixtureUuidIdentity extends AbstractUuidIdentity {}

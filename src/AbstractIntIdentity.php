@@ -17,7 +17,7 @@ use JeckelLab\IdentityContract\Exception\EnableToGenerateNewIdentityException;
  * @extends AbstractIdentity<int>
  * @psalm-immutable
  */
-abstract class AbstractIntIdentity extends AbstractIdentity
+abstract readonly class AbstractIntIdentity extends AbstractIdentity
 {
     /**
      * @return int|string
