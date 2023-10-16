@@ -16,7 +16,7 @@ use Ramsey\Uuid\Uuid;
  * @package JeckelLab\IdentityContract
  * @psalm-immutable
  */
-abstract class AbstractUuidIdentity extends AbstractStringIdentity
+abstract readonly class AbstractUuidIdentity extends AbstractStringIdentity
 {
     /**
      * @return string

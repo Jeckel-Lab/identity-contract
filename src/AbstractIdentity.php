@@ -20,7 +20,7 @@ use JeckelLab\Contract\Domain\Identity\Identity;
  * @implements Identity<IdentityType>
  * @psalm-immutable
  */
-abstract class AbstractIdentity implements Identity
+abstract readonly class AbstractIdentity implements Identity
 {
     /**
      * @var IdentityType

@@ -15,7 +15,7 @@ namespace JeckelLab\IdentityContract;
  * @extends AbstractIdentity<string>
  * @psalm-immutable
  */
-abstract class AbstractStringIdentity extends AbstractIdentity
+abstract readonly class AbstractStringIdentity extends AbstractIdentity
 {
     protected static function generateNewIdentity(): int|string
     {
