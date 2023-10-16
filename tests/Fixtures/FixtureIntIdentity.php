@@ -16,7 +16,4 @@ use JeckelLab\IdentityContract\AbstractIntIdentity;
  * @package JeckelLab\IdentityContract\Test\Fixtures
  * @psalm-immutable
  */
-class FixtureIntIdentity extends AbstractIntIdentity
-{
-
-}
+class FixtureIntIdentity extends AbstractIntIdentity {}

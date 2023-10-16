@@ -18,6 +18,4 @@ use LogicException;
  * @psalm-immutable
  * @psalm-suppress MutableDependency
  */
-class EnableToGenerateNewIdentityException extends LogicException implements IdentityException
-{
-}
+class EnableToGenerateNewIdentityException extends LogicException implements IdentityException {}

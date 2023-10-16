@@ -18,7 +18,7 @@ class StringIdentityTest extends TestCase
 {
     public function testFromWithStringShouldSuccess(): void
     {
-        $this->assertInstanceOf(FixtureStringIdentity::class, FixtureStringIdentity::from('barfoo'));
+        self::assertInstanceOf(FixtureStringIdentity::class, FixtureStringIdentity::from('barfoo'));
     }
 
     /**
@@ -34,25 +34,25 @@ class StringIdentityTest extends TestCase
     public function testNewShouldGenerateRandomId(): void
     {
         $id1 = FixtureStringIdentity::new();
-        $this->assertInstanceOf(FixtureStringIdentity::class, $id1);
+        self::assertInstanceOf(FixtureStringIdentity::class, $id1);
 
         $id2 = FixtureStringIdentity::new();
-        $this->assertInstanceOf(FixtureStringIdentity::class, $id2);
+        self::assertInstanceOf(FixtureStringIdentity::class, $id2);
 
-        $this->assertNotEquals($id1->id(), $id2->id());
+        self::assertNotEquals($id1->id(), $id2->id());
 
         $customId = FixtureStringCustomGeneratorIdentity::new();
-        $this->assertInstanceOf(FixtureStringCustomGeneratorIdentity::class, $customId);
+        self::assertInstanceOf(FixtureStringCustomGeneratorIdentity::class, $customId);
     }
 
     public function testIdReturnTheProvidedId(): void
     {
-        $this->assertSame('foobar', FixtureStringIdentity::from('foobar')->id());
+        self::assertSame('foobar', FixtureStringIdentity::from('foobar')->id());
     }
 
     public function testStringifyReturnTheProvidedIdAsString(): void
     {
-        $this->assertSame('foobar', (string) FixtureStringIdentity::from('foobar'));
+        self::assertSame('foobar', (string) FixtureStringIdentity::from('foobar'));
     }
 
     public function testEqualsWithSameIdShouldSuccess(): void
@@ -60,12 +60,12 @@ class StringIdentityTest extends TestCase
         $id1 = FixtureStringIdentity::from('foobar');
         $id2 = FixtureStringIdentity::from('foobar');
 
-        $this->assertSame($id1, $id2);
-        $this->assertTrue($id1->equals($id1));
-        $this->assertTrue($id1->equals($id2));
+        self::assertSame($id1, $id2);
+        self::assertTrue($id1->equals($id1));
+        self::assertTrue($id1->equals($id2));
 
-        $this->assertFalse($id1->equals(FixtureStringIdentity::from('foobarbaz')));
-        $this->assertFalse($id1->equals(FixtureIntIdentity::from(123)));
+        self::assertFalse($id1->equals(FixtureStringIdentity::from('foobarbaz')));
+        self::assertFalse($id1->equals(FixtureIntIdentity::from(123)));
     }
 
     /**
@@ -76,7 +76,7 @@ class StringIdentityTest extends TestCase
     public function testEqualsWithDifferentIdShouldFail(mixed $id): void
     {
         $id1 = FixtureStringIdentity::from('foobar');
-        $this->assertFalse($id1->equals($id));
+        self::assertFalse($id1->equals($id));
     }
 
     /**
@@ -85,7 +85,7 @@ class StringIdentityTest extends TestCase
      */
     public function testJsonSerialization(): void
     {
-        $this->assertEquals(
+        self::assertEquals(
             '"foobar"',
             json_encode(FixtureStringIdentity::from('foobar'), JSON_THROW_ON_ERROR)
         );
@@ -94,7 +94,7 @@ class StringIdentityTest extends TestCase
     /**
      * @return list<list<mixed>>
      */
-    public function notStringData(): array
+    public static function notStringData(): array
     {
         return [
             [null],
