@@ -11,28 +11,78 @@ on:
 
 jobs:
   global-qa-tests:
+    name: PHP ${{ matrix.php }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        php:
+          - "8.2"
+
+    env:
+      extensions: ctype, dom, intl, json, mbstring, openssl, xml, zip, zlib
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+
+      - name: Setup cache environment
+        id: extcache
+        uses: shivammathur/cache-extensions@v1
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: ${{ env.extensions }}
+          key: ${{ env.key }}
+
+      - name: Cache extensions
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.extcache.outputs.dir }}
+          key: ${{ steps.extcache.outputs.key }}
+          restore-keys: ${{ steps.extcache.outputs.key }}
+
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2 #https://github.com/shivammathur/setup-php
         with:
           php-version: 8.2
-      - name: Get composer cache directory
-        id: composer-cache
-        uses: actions/cache@v2
+          extensions: ${{ env.extensions }}
+          tools: composer, pecl
+          coverage: xdebug
+        env:
+          COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: ramsey/composer-install@v2
         with:
-          path: vendor
-          key: ${{ runner.os }}-php-8.0-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-php-8.0
-      - name: Install dependencies
-        run: composer install --no-interaction --prefer-dist --dev
-      - name: GrumPHP
-        run: ./vendor/bin/grumphp run --testsuite=github_actions
-      - name: PHPUnit Coverage
-        run: ./vendor/bin/phpunit --coverage-clover coverage.xml
+          composer-options: "${{ matrix.composer-options }}"
+
+      - name: Setup Problem Matchers
+        run: |
+          echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+          echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+      - name: Run PHPMD
+        run: vendor/bin/phpmd src,tests text ruleset.xml
+
+      - name: Run PHP-CS-Fixer
+        run: vendor/bin/php-cs-fixer check --diff --verbose
+
+      - name: Run PHPStan
+        run: vendor/bin/phpstan
+
+      - name: Run PHPUnit
+        run: vendor/bin/phpunit --coverage-clover coverage.xml
+
+      - name: Run Infection
+        run: vendor/bin/infection run
+        env:
+          INFECTION_BADGE_API_KEY: ${{ secrets.INFECTION_BADGE_API_KEY }}
+
+      - name: Run Composer Require Checker
+        run: vendor/bin/composer-require-checker
+
+      - name: Run Roave Security Checker
+        run: composer update --dry-run roave/security-advisories
+
       - uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
@@ -40,7 +90,3 @@ jobs:
           flags: unittests # optional
           fail_ci_if_error: true # optional (default = false)
           verbose: true # optional (default = false)
-      - name: Infection
-        run: ./vendor/bin/infection
-        env:
-          INFECTION_BADGE_API_KEY: ${{ secrets.INFECTION_BADGE_API_KEY }}
