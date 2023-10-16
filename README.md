@@ -6,15 +6,26 @@
 
 # Identity-contract
 
-**Require PHP >= 8.0**
+| PHP Version | Package version | 
+| ---------- | ---------------- |
+| PHP >= 8.2 | v2.0 |
+| PHP >= 8.0 | v1.1 |
 
-Propose basic abstract classes to manage Identities in Domain project.
+This package propose abstract classes to manage Identities in DDD projects.
 
+## Features
+
+Builtin typed identities :
 - integer based identities
 - string based identities
 - uuid based identities
 
-# Usage
+Also:
+- instance are readonly
+- equality test
+- request same identity twice return same object
+
+## Usage
 
 **Int Identity**
 ```PHP
@@ -34,5 +45,11 @@ $id = UserId::from("d2fbc6c0-0497-42f1-8ece-8840641b67f0");
 // or
 
 $id = UserId::new();
-```
 
+// Generating twice same identity return same object
+
+$id1 = UserId::from("d2fbc6c0-0497-42f1-8ece-8840641b67f0");
+$id2 = UserId::from("d2fbc6c0-0497-42f1-8ece-8840641b67f0");
+
+var_dump($id1 === $id2); // true
+```
