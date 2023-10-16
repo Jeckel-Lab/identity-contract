@@ -12,6 +12,7 @@ namespace JeckelLab\IdentityContract;
 use JeckelLab\Contract\Domain\Equality;
 use JeckelLab\Contract\Domain\Identity\Exception\InvalidIdException;
 use JeckelLab\Contract\Domain\Identity\Identity;
+use JeckelLab\IdentityContract\Exception\CloningException;
 
 /**
  * Class AbstractIdentity
@@ -105,6 +106,11 @@ abstract readonly class AbstractIdentity implements Identity
     public function __toString(): string
     {
         return (string) $this->identity;
+    }
+
+    public function __clone(): void
+    {
+        throw new CloningException("Cloning identity is not allowed");
     }
 
     /**
